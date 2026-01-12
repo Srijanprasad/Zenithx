@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🎧 Zenith X
+# Zenith X
 
 ### Premium Audio Experience Redefined
 
@@ -17,20 +17,20 @@
 
 ---
 
-## ✨ Features
+## Features
 
-- 🎬 **Cinematic Scrollytelling** - Immersive scroll-driven animations with 120+ frame sequences
-- 🎨 **3D Product Visualization** - Interactive Three.js models with React Three Fiber
-- ⚡ **Smooth Animations** - Powered by Framer Motion and GSAP
-- 📱 **Fully Responsive** - Optimized for all devices and screen sizes
-- 🎯 **Multi-Page Experience** - Product, Technology, Experience, and Contact pages
-- 🌐 **MongoDB Integration** - Dynamic content management
-- 🚀 **Performance Optimized** - Fast loading with Next.js 16 App Router
-- 🎭 **Premium Design** - Dark mode, glassmorphism, and modern UI/UX
+- **Cinematic Scrollytelling** - Immersive scroll-driven animations with 120+ frame sequences
+- **3D Product Visualization** - Interactive Three.js models with React Three Fiber
+- **Smooth Animations** - Powered by Framer Motion and GSAP
+- **Fully Responsive** - Optimized for all devices and screen sizes
+- **Multi-Page Experience** - Product, Technology, Experience, and Contact pages
+- **MongoDB Integration** - Dynamic content management
+- **Performance Optimized** - Fast loading with Next.js 16 App Router
+- **Premium Design** - Dark mode, glassmorphism, and modern UI/UX
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
 - **Framework:** Next.js 16.1 (App Router)
@@ -46,7 +46,7 @@
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -88,7 +88,7 @@
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 zenith_x/
@@ -117,7 +117,7 @@ zenith_x/
 
 ---
 
-## 🎯 Key Components
+## Key Components
 
 ### Scroll-Driven Animation
 The homepage features a unique scrollytelling experience where headphones "explode" (disassemble) as you scroll, revealing internal components through 120+ sequential frames rendered on HTML5 Canvas.
@@ -134,7 +134,7 @@ Interactive Three.js models allow users to explore the product from every angle 
 
 ---
 
-## 🔧 Available Scripts
+## Available Scripts
 
 ```bash
 # Development
@@ -150,7 +150,7 @@ npm run lint         # Run ESLint
 
 ---
 
-## 🌐 Deployment
+## Deployment
 
 ### Deploy to Vercel (Recommended)
 
@@ -172,7 +172,7 @@ MONGODB_URI=your_mongodb_connection_string
 
 ---
 
-## 🎨 Design Philosophy
+## Design Philosophy
 
 Zenith X embodies premium design principles:
 
@@ -184,7 +184,7 @@ Zenith X embodies premium design principles:
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
@@ -196,13 +196,13 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ---
 
-## 📝 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - [Next.js](https://nextjs.org/) - The React Framework
 - [Three.js](https://threejs.org/) - 3D Graphics Library
@@ -214,8 +214,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <div align="center">
 
-**Built with ❤️ by [Srijan Prasad](https://github.com/Srijanprasad)**
+**Built with care by [Srijan Prasad](https://github.com/Srijanprasad)**
 
-⭐ Star this repo if you like it!
+Star this repo if you like it!
 
 </div>
