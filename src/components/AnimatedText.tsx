@@ -14,7 +14,7 @@ interface AnimatedTextProps {
 }
 
 export default function AnimatedText({ text, className = '', delay = 0, tag = 'h2' }: AnimatedTextProps) {
-    const elementRef = useRef<HTMLElement>(null);
+    const elementRef = useRef<any>(null);
     const Tag = tag;
 
     useEffect(() => {
