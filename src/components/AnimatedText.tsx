@@ -22,7 +22,7 @@ export default function AnimatedText({ text, className = '', delay = 0, tag = 'h
 
         const chars = elementRef.current.innerText.split('');
         elementRef.current.innerHTML = chars
-            .map((char) => `<span class="inline-block opacity-0 translate-y-4">${char === ' ' ? '&nbsp;' : char}</span>`)
+            .map((char: string) => `<span class="inline-block opacity-0 translate-y-4">${char === ' ' ? '&nbsp;' : char}</span>`)
             .join('');
 
         const targets = elementRef.current.querySelectorAll('span');

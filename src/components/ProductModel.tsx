@@ -13,7 +13,7 @@ interface ProductModelProps {
 
 export default function ProductModel({ customProgress = null }: ProductModelProps) {
     const groupRef = useRef<Group>(null);
-    const tl = useRef<gsap.core.Timeline>();
+    const tl = useRef<gsap.core.Timeline | null>(null);
     const { viewport, size } = useThree();
 
     // Parts refs
