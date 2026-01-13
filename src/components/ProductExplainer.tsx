@@ -2,104 +2,99 @@
 
 import { motion } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Environment, ContactShadows } from '@react-three/drei';
+import { OrbitControls, Environment, ContactShadows, Float, PerspectiveCamera } from '@react-three/drei';
 import { Suspense, useState } from 'react';
 import ProductModel from './ProductModel';
 import Link from 'next/link';
+import SplitText from './SplitText';
 
 const specs = [
-    { label: 'Driver Size', value: '50mm Graphene' },
-    { label: 'Frequency Response', value: '5Hz - 40kHz' },
-    { label: 'Impedance', value: '32Ω' },
-    { label: 'Battery Life', value: '24 Hours ANC' },
-    { label: 'Connectivity', value: 'Bluetooth 5.3 + USB-C' },
-    { label: 'Weight', value: '285g' }
+    { label: 'Architecture', value: 'Aerospace Titanium' },
+    { label: 'Frequency Scale', value: '5Hz - 44kHz' },
+    { label: 'Processing', value: 'Dual-H2 Neural' },
+    { label: 'Interface', value: 'Zero-Lag 2.4GHz' },
 ];
 
 export default function ProductExplainer() {
     const [isHovered, setIsHovered] = useState(false);
 
     return (
-        <section className="relative py-32 px-8 bg-gradient-to-b from-[#050505] to-[#0a0a0a]">
-            <div className="max-w-7xl mx-auto">
-
-                <div className="grid md:grid-cols-2 gap-16 items-center">
+        <section className="relative py-48 bg-[#020205] overflow-hidden">
+            <div className="container-zenith">
+                <div className="grid lg:grid-cols-2 gap-24 items-center">
 
                     {/* Left: Content */}
-                    <motion.div
-                        initial={{ opacity: 0, x: -50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                        className="space-y-8"
-                    >
-                        <div>
-                            <span className="text-sm font-mono text-gray-500 uppercase tracking-widest">Technical Excellence</span>
-                            <h2 className="text-5xl md:text-6xl font-bold tracking-tighter mt-4 mb-6">
-                                Precision Engineering
-                            </h2>
-                            <p className="text-xl text-gray-400 leading-relaxed">
-                                Every component is meticulously designed and tested to deliver uncompromising audio fidelity.
-                                From the graphene drivers to the titanium frame, Zenith X represents the pinnacle of acoustic engineering.
-                            </p>
+                    <div className="space-y-12">
+                        <div className="space-y-4">
+                            <span className="text-[10px] font-mono text-white/30 uppercase tracking-[0.6em] block pl-[0.6em]">Technical Blueprint</span>
+                            <SplitText
+                                text="PRECISION"
+                                className="text-6xl md:text-9xl font-black tracking-tighter text-gradient"
+                            />
                         </div>
 
-                        <div className="grid grid-cols-2 gap-6">
+                        <p className="text-white/40 text-lg md:text-xl font-light leading-relaxed max-w-lg">
+                            Every curve is calculated. Every material is chosen for its acoustic properties. Zenith X represents the absolute peak of audio engineering.
+                        </p>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                             {specs.map((spec, index) => (
                                 <motion.div
                                     key={index}
-                                    initial={{ opacity: 0, y: 20 }}
+                                    initial={{ opacity: 0, y: 10 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
-                                    transition={{ delay: index * 0.1 }}
-                                    className="border-l-2 border-white/20 pl-4"
+                                    transition={{ delay: 0.1 * index }}
+                                    className="space-y-2 border-l border-white/5 pl-6"
                                 >
-                                    <div className="text-sm text-gray-500 mb-1">{spec.label}</div>
-                                    <div className="text-lg font-semibold">{spec.value}</div>
+                                    <div className="text-[9px] text-white/20 uppercase tracking-[0.3em]">{spec.label}</div>
+                                    <div className="text-xl font-light text-white/70">{spec.value}</div>
                                 </motion.div>
                             ))}
                         </div>
 
-                        <Link href="/product">
-                            <motion.button
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                className="px-8 py-4 bg-white text-black font-bold text-sm tracking-widest uppercase rounded-full hover:bg-gray-200 transition-colors"
-                            >
-                                View Full Specs
-                            </motion.button>
-                        </Link>
-                    </motion.div>
+                        <div className="pt-12">
+                            <Link href="/product">
+                                <motion.button
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    className="px-12 py-6 bg-white text-black font-black text-[10px] tracking-[0.4em] uppercase hover:bg-neutral-200 transition-colors"
+                                >
+                                    Investigate Build
+                                </motion.button>
+                            </Link>
+                        </div>
+                    </div>
 
-                    {/* Right: 3D Model */}
+                    {/* Right: 3D Model Visual */}
                     <motion.div
-                        initial={{ opacity: 0, x: 50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                        className="h-[600px] relative"
                         onMouseEnter={() => setIsHovered(true)}
                         onMouseLeave={() => setIsHovered(false)}
+                        className="relative aspect-square md:aspect-[4/5] bg-white/[0.01] border border-white/5 cursor-crosshair overflow-hidden group"
                     >
-                        <div className="w-full h-full border border-white/10 rounded-2xl overflow-hidden bg-black/50 backdrop-blur-sm">
-                            <Canvas camera={{ position: [0, 0, 5], fov: 45 }} dpr={[1, 2]}>
-                                <color attach="background" args={['#000000']} />
-                                <ambientLight intensity={0.3} />
-                                <spotLight position={[10, 10, 10]} intensity={1} castShadow />
-                                <pointLight position={[-10, -10, -10]} intensity={0.5} color="#4a9eff" />
-                                <Environment preset="studio" />
-
-                                <Suspense fallback={null}>
-                                    <ProductModel customProgress={isHovered ? 0.5 : 0} />
-                                    <ContactShadows resolution={1024} scale={10} blur={2} opacity={0.5} far={10} color="#000000" />
-                                </Suspense>
-
-                                <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={isHovered ? 2 : 0.5} />
-                            </Canvas>
+                        {/* Decorative HUD Elements */}
+                        <div className="absolute top-8 left-8 text-[8px] font-mono text-white/20 uppercase tracking-widest z-10 transition-opacity group-hover:opacity-100 opacity-50">
+                            Status: Scanning // [Alpha_01]
                         </div>
-                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-xs text-gray-500 uppercase tracking-widest">
-                            Hover to Interact
+                        <div className="absolute bottom-8 right-8 text-[8px] font-mono text-white/20 uppercase tracking-widest z-10 transition-opacity group-hover:opacity-100 opacity-50">
+                            Mode: Interactive_Deconstruct
                         </div>
+
+                        <Canvas shadows dpr={[1, 2]}>
+                            <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={35} />
+                            <ambientLight intensity={0.2} />
+                            <spotLight position={[5, 10, 5]} intensity={2} angle={0.15} penumbra={1} castShadow />
+                            <Environment preset="night" />
+
+                            <Suspense fallback={null}>
+                                <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
+                                    <ProductModel customProgress={isHovered ? 0.6 : 0} />
+                                </Float>
+                                <ContactShadows resolution={1024} scale={10} blur={3} opacity={0.2} far={10} color="#000000" />
+                            </Suspense>
+
+                            <OrbitControls enableZoom={false} autoRotate={!isHovered} autoRotateSpeed={1} />
+                        </Canvas>
                     </motion.div>
 
                 </div>

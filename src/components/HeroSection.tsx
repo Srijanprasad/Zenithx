@@ -1,89 +1,100 @@
 'use client';
 
-import { motion, useMotionValue, useTransform } from 'framer-motion';
-import { useEffect } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 import Link from 'next/link';
+import SplitText from './SplitText';
 
 export default function HeroSection() {
-    const mouseX = useMotionValue(0);
-    const mouseY = useMotionValue(0);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start start", "end start"]
+    });
 
-    const rotateX = useTransform(mouseY, [-0.5, 0.5], [5, -5]);
-    const rotateY = useTransform(mouseX, [-0.5, 0.5], [-5, 5]);
-
-    useEffect(() => {
-        const handleMouseMove = (e: MouseEvent) => {
-            const x = (e.clientX / window.innerWidth) - 0.5;
-            const y = (e.clientY / window.innerHeight) - 0.5;
-            mouseX.set(x);
-            mouseY.set(y);
-        };
-
-        window.addEventListener('mousemove', handleMouseMove);
-        return () => window.removeEventListener('mousemove', handleMouseMove);
-    }, [mouseX, mouseY]);
+    const y = useTransform(scrollYProgress, [0, 1], [0, 400]);
+    const opacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
+    const scale = useTransform(scrollYProgress, [0, 0.4], [1, 0.9]);
 
     return (
-        <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
+        <section ref={containerRef} className="relative min-h-screen w-full flex items-center justify-center overflow-hidden py-32">
 
-            {/* Content */}
-            <div className="relative z-10 text-center px-8 max-w-5xl">
+            <div className="container-zenith relative z-10">
                 <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1.2, ease: [0.6, 0.01, -0.05, 0.95] }}
-                    style={{ rotateX, rotateY }}
-                    className="perspective-1000"
+                    style={{ y, opacity, scale }}
+                    className="flex flex-col items-center text-center"
                 >
-                    <h1 className="text-7xl md:text-9xl font-bold tracking-tighter mb-6 bg-gradient-to-b from-white to-gray-500 bg-clip-text text-transparent">
-                        ZENITH X
-                    </h1>
-                    <p className="text-xl md:text-3xl text-gray-400 font-light mb-12 max-w-2xl mx-auto">
-                        The pinnacle of audio engineering. Experience sound in its purest form.
-                    </p>
+                    <div className="mb-6">
+                        <motion.span
+                            initial={{ opacity: 0, letterSpacing: '0.8em' }}
+                            animate={{ opacity: 1, letterSpacing: '0.3em' }}
+                            transition={{ duration: 2, ease: "easeOut" }}
+                            className="text-[10px] md:text-xs font-mono text-white/40 uppercase pl-[0.3em]"
+                        >
+                            The Future of Acoustic Purity
+                        </motion.span>
+                    </div>
+
+                    <div className="relative mb-12">
+                        <h1 className="flex flex-col items-center">
+                            <SplitText
+                                text="ZENITH X"
+                                className="text-7xl md:text-[12rem] font-black tracking-tighter leading-none text-white text-gradient"
+                            />
+                        </h1>
+                        <motion.div
+                            initial={{ scaleX: 0 }}
+                            animate={{ scaleX: 1 }}
+                            transition={{ delay: 0.8, duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+                            className="h-[2px] w-full bg-gradient-to-r from-transparent via-white/20 to-transparent mt-4"
+                        />
+                    </div>
+
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 1.2, duration: 1 }}
+                        className="max-w-xl text-sm md:text-lg text-white/50 font-light mb-16 px-4 text-balance leading-relaxed"
+                    >
+                        Engineered with aerospace-grade titanium drivers and advanced spatial intelligence. Experience audio without compromise.
+                    </motion.p>
 
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.5, duration: 0.8 }}
-                        className="flex gap-6 justify-center flex-wrap"
+                        transition={{ delay: 1.5, duration: 1 }}
+                        className="flex flex-col md:flex-row items-center justify-center gap-12"
                     >
                         <Link href="/product">
                             <motion.button
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="px-10 py-5 bg-white text-black font-bold text-sm tracking-widest uppercase rounded-full hover:bg-gray-200 transition-colors"
+                                className="px-16 py-6 bg-white text-black font-black text-[10px] tracking-[0.4em] uppercase rounded-none hover:bg-gray-200 transition-colors"
                             >
-                                Explore Product
+                                Pre-Order Alpha
                             </motion.button>
                         </Link>
-                        <Link href="/contact">
-                            <motion.button
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                className="px-10 py-5 border-2 border-white/20 text-white font-bold text-sm tracking-widest uppercase rounded-full hover:border-white/40 transition-colors"
-                            >
-                                Pre-Order Now
-                            </motion.button>
-                        </Link>
+
+                        <button className="text-[10px] tracking-[0.4em] uppercase text-white/40 border-b border-white/10 pb-2 hover:text-white hover:border-white transition-all">
+                            Technical Whitepaper
+                        </button>
                     </motion.div>
                 </motion.div>
             </div>
 
-            {/* Scroll Indicator */}
+            {/* Cinematic Scroll Indicator */}
             <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.5 }}
-                className="absolute bottom-12 left-1/2 -translate-x-1/2 z-10"
+                style={{ opacity }}
+                className="absolute bottom-12 flex flex-col items-center gap-6"
             >
-                <motion.div
-                    animate={{ y: [0, 10, 0] }}
-                    transition={{ repeat: Infinity, duration: 2 }}
-                    className="w-6 h-10 border-2 border-white/30 rounded-full flex items-start justify-center p-2"
-                >
-                    <motion.div className="w-1 h-2 bg-white/50 rounded-full" />
-                </motion.div>
+                <span className="text-[9px] font-mono tracking-[0.6em] text-white/20 uppercase pl-[0.6em]">System Online</span>
+                <div className="w-[1px] h-24 bg-gradient-to-b from-white/20 to-transparent relative overflow-hidden">
+                    <motion.div
+                        animate={{ y: ['-100%', '100%'] }}
+                        transition={{ repeat: Infinity, duration: 2.5, ease: "linear" }}
+                        className="absolute top-0 left-0 w-full h-1/2 bg-white/40"
+                    />
+                </div>
             </motion.div>
         </section>
     );

@@ -1,66 +1,74 @@
 'use client';
 
-import { Canvas } from '@react-three/fiber';
-import { Environment, PerspectiveCamera, ContactShadows } from '@react-three/drei';
-import { Suspense, useEffect, useState } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { Environment, PerspectiveCamera, ContactShadows, Float } from '@react-three/drei';
+import { Suspense, useRef } from 'react';
 import ProductModel from './ProductModel';
+import Atmosphere from './Atmosphere';
+import EnergyWaves from './EnergyWaves';
 import * as THREE from 'three';
-import { CAMERA_POSITIONS, BREAKPOINTS } from '@/lib/constants';
 
-interface SceneProps {
-    content?: any[];
+function CameraRig() {
+    const groupRef = useRef<THREE.Group>(null);
+    useFrame((state) => {
+        if (!groupRef.current) return;
+        // Subtle mouse parallax for the whole scene content
+        groupRef.current.position.x = THREE.MathUtils.lerp(groupRef.current.position.x, state.mouse.x * 0.5, 0.05);
+        groupRef.current.position.y = THREE.MathUtils.lerp(groupRef.current.position.y, state.mouse.y * 0.5, 0.05);
+    });
+    return <group ref={groupRef}><ProductModel /></group>;
 }
 
-export default function Scene({ content }: SceneProps) {
-    const [cameraPos, setCameraPos] = useState<[number, number, number]>([0, 0, 5]);
-
-    useEffect(() => {
-        const updateCamera = () => {
-            if (window.innerWidth < BREAKPOINTS.mobile) {
-                setCameraPos([0, 0, 7]); // Move back for mobile
-            } else {
-                setCameraPos([0, 0, 5]);
-            }
-        };
-
-        updateCamera();
-        window.addEventListener('resize', updateCamera);
-        return () => window.removeEventListener('resize', updateCamera);
-    }, []);
-
+export default function Scene() {
     return (
-        <div className="fixed inset-0 z-0 w-full h-screen bg-[#050505] pointer-events-none">
+        <div className="fixed inset-0 z-0 w-full h-screen bg-[#020205] pointer-events-none">
             <Canvas
-                className="w-full h-full"
-                gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping }}
                 shadows
-                dpr={[1, 2]} // Quality scaling
+                dpr={[1, 2]}
+                gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping }}
             >
-                <PerspectiveCamera makeDefault position={cameraPos} fov={45} />
+                <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={35} />
 
-                {/* Cinematic Lighting */}
+                {/* Cinematic Lighting Setup */}
                 <ambientLight intensity={0.2} />
+
+                {/* Main Key Light */}
                 <spotLight
-                    position={[10, 10, 10]}
+                    position={[5, 5, 5]}
                     angle={0.15}
                     penumbra={1}
-                    intensity={1}
+                    intensity={2}
                     castShadow
                 />
-                <pointLight position={[-10, -10, -10]} intensity={0.5} color="#4a9eff" />
 
-                {/* Environment Reflections */}
-                <Environment preset="studio" />
+                {/* Rim Light (Back) */}
+                <spotLight
+                    position={[-5, 5, -5]}
+                    angle={0.3}
+                    penumbra={1}
+                    intensity={1.5}
+                    color="#4a9eff"
+                />
+
+                {/* Fill Light */}
+                <pointLight position={[-5, -2, 2]} intensity={0.5} />
+
+                <Atmosphere />
+                <EnergyWaves />
+
+                <Environment preset="night" />
 
                 <Suspense fallback={null}>
-                    <ProductModel />
+                    <Float speed={1.5} rotationIntensity={0.5} floatIntensity={0.5}>
+                        <CameraRig />
+                    </Float>
                 </Suspense>
 
                 <ContactShadows
                     resolution={1024}
                     scale={10}
-                    blur={1.5}
-                    opacity={0.25}
+                    blur={2}
+                    opacity={0.15}
                     far={10}
                     color="#000000"
                 />

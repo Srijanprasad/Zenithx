@@ -2,62 +2,73 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import SplitText from './SplitText';
 
 export default function FinalCTA() {
     return (
-        <section className="relative py-32 px-8 bg-gradient-to-b from-[#050505] to-black overflow-hidden">
+        <section className="relative py-48 px-6 bg-[#020205] overflow-hidden">
 
-            {/* Animated Background Grid */}
-            <div className="absolute inset-0 opacity-20">
-                <div className="absolute inset-0" style={{
-                    backgroundImage: 'linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)',
-                    backgroundSize: '50px 50px'
-                }} />
-            </div>
+            {/* Background elements */}
+            <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 
             <div className="relative z-10 max-w-5xl mx-auto text-center">
 
+                <div className="mb-8 overflow-hidden inline-block">
+                    <motion.span
+                        initial={{ y: 20, opacity: 0 }}
+                        whileInView={{ y: 0, opacity: 1 }}
+                        viewport={{ once: true }}
+                        className="text-[10px] font-mono text-white/40 uppercase tracking-[0.5em]"
+                    >
+                        Secure Your Legacy
+                    </motion.span>
+                </div>
+
                 <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
+                    transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
                 >
-                    <h2 className="text-6xl md:text-8xl font-bold tracking-tighter mb-8">
-                        Ready to Experience
-                        <br />
-                        <span className="bg-gradient-to-r from-white to-gray-500 bg-clip-text text-transparent">
-                            Pure Sound?
+                    <h2 className="text-6xl md:text-9xl font-bold tracking-tighter mb-12 flex flex-col items-center">
+                        <SplitText text="READY TO" className="leading-none text-white/90" />
+                        <span className="bg-gradient-to-r from-white via-white to-white/40 bg-clip-text text-transparent italic">
+                            EVOLVE?
                         </span>
                     </h2>
 
-                    <p className="text-xl md:text-2xl text-gray-400 mb-12 max-w-2xl mx-auto">
-                        Join the waitlist for exclusive early access and special launch pricing.
-                    </p>
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.5 }}
+                        className="text-lg md:text-xl text-white/40 mb-16 max-w-2xl mx-auto font-light leading-relaxed"
+                    >
+                        The next chapter of audio engineering is here. Limited primary production units available for early adopters.
+                    </motion.p>
 
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ delay: 0.3 }}
-                        className="flex gap-6 justify-center flex-wrap"
+                        transition={{ delay: 0.7 }}
+                        className="flex flex-col md:flex-row gap-8 justify-center items-center"
                     >
                         <Link href="/contact">
                             <motion.button
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="px-12 py-6 bg-white text-black font-bold text-sm tracking-widest uppercase rounded-full hover:bg-gray-200 transition-colors"
+                                className="px-16 py-6 bg-white text-black font-bold text-[10px] tracking-[0.4em] uppercase rounded-sm hover:shadow-[0_0_40px_rgba(255,255,255,0.2)] transition-all duration-500"
                             >
-                                Pre-Order Now
+                                Pre-Order Alpha
                             </motion.button>
                         </Link>
                         <Link href="/technology">
                             <motion.button
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                className="px-12 py-6 border-2 border-white/20 text-white font-bold text-sm tracking-widest uppercase rounded-full hover:border-white/40 transition-colors"
+                                whileHover={{ opacity: 0.7 }}
+                                className="text-[10px] tracking-[0.3em] uppercase text-white/60 border-b border-white/20 pb-1"
                             >
-                                Learn More
+                                Technical Briefing
                             </motion.button>
                         </Link>
                     </motion.div>
@@ -67,22 +78,24 @@ export default function FinalCTA() {
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
-                    transition={{ delay: 0.6 }}
-                    className="mt-20 pt-12 border-t border-white/10"
+                    transition={{ delay: 1 }}
+                    className="mt-32 grid grid-cols-2 md:grid-cols-4 gap-12 text-[9px] font-mono text-white/20 uppercase tracking-[0.2em]"
                 >
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-sm text-gray-500">
-                        <div>
-                            <div className="font-semibold text-white mb-2">Free Shipping</div>
-                            <div>Worldwide delivery on all orders</div>
-                        </div>
-                        <div>
-                            <div className="font-semibold text-white mb-2">2-Year Warranty</div>
-                            <div>Comprehensive coverage included</div>
-                        </div>
-                        <div>
-                            <div className="font-semibold text-white mb-2">30-Day Returns</div>
-                            <div>No questions asked guarantee</div>
-                        </div>
+                    <div className="space-y-2">
+                        <div className="text-white/40">Logistics</div>
+                        <div>Global Distribution</div>
+                    </div>
+                    <div className="space-y-2">
+                        <div className="text-white/40">Integrity</div>
+                        <div>24-Month Guarantee</div>
+                    </div>
+                    <div className="space-y-2">
+                        <div className="text-white/40">Support</div>
+                        <div>Priority Channel</div>
+                    </div>
+                    <div className="space-y-2">
+                        <div className="text-white/40">Status</div>
+                        <div>Operational</div>
                     </div>
                 </motion.div>
 
